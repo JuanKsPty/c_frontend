@@ -7,31 +7,44 @@ const asideSelector = document.querySelector(".navbar-shopping-cart")
 
 const cardsContainer = document.querySelector(".cards-container")
 
+const productDetailCloseIcon = document.querySelector(".product-detail-close")
+const productDetail = document.querySelector(".product-detail-extend")
 navbarEmailMenu.addEventListener("click",toggleEmainMenuDesktop);
 linesMenuMobile.addEventListener("click",toggleMenuMobile);
 asideSelector.addEventListener("click",toggleAside);
+productDetailCloseIcon.addEventListener("click",closeProductDetail)
+
+
+function closeProductDetail(){
+    productDetail.classList.add("inactive");
+} 
+
+function openProductDetail(){
+    menuMobile.classList.add("inactive");
+    aside.classList.add("inactive");
+    desktopMenu.classList.add("inactive");
+
+    productDetail.classList.remove("inactive");
+}
 
 function toggleAside(){
-    if(!menuMobile.classList.contains("inactive")){
+    productDetail.classList.add("inactive");
     menuMobile.classList.add("inactive");
-    }else if(!desktopMenu.classList.contains("inactive")){
-        desktopMenu.classList.add("inactive");
-    }
+    desktopMenu.classList.add("inactive");
+    
     aside.classList.toggle("inactive");
 }
 
 function toggleEmainMenuDesktop(){
-    if(!aside.classList.contains("inactive")){
-        aside.classList.add("inactive");
-    }
+    aside.classList.add("inactive");
+    
     desktopMenu.classList.toggle("inactive");
 }
 
 function toggleMenuMobile(){
-    
-    if(!aside.classList.contains("inactive")){
-        aside.classList.add("inactive");
-        }
+    aside.classList.add("inactive");
+    closeProductDetail()
+
     menuMobile.classList.toggle("inactive");
 }
 
@@ -89,6 +102,7 @@ function renderProduct(array){
      for (product of array){
         const productCardContainer = document.createElement("div")
         productCardContainer.setAttribute("class", "product-card")
+        productCardContainer.addEventListener("click",openProductDetail)
 
         const productCardImg = document.createElement("img")
         productCardImg.setAttribute("src", product.image)
